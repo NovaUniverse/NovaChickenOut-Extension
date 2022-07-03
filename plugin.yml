@@ -1,0 +1,7 @@
+name: ChickenOutExtension
+main: net.novauniverse.games.chickenout.extension.ChickenOutExtension
+description: Novauniverse Chickenout Extension
+version: 1.0
+depend: [NovaCore, NovaCoreGameEngine, ChickenOut]
+softdepend: [NovaGamesTarget]
+api-version: 1.13
