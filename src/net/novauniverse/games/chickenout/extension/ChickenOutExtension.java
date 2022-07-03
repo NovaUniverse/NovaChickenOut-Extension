@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import net.novauniverse.games.chickenout.NovaChickenOut;
 import net.novauniverse.games.chickenout.game.ChickenOut;
@@ -60,7 +61,7 @@ public class ChickenOutExtension extends JavaPlugin implements Listener {
 	}
 
 	public void updateLevelBar() {
-		levelBar.setTitle(ChatColor.RED + "Level " + NovaChickenOut.getInstance().getGame().getLevel());
+		levelBar.setTitle(ChatColor.RED + "" + ChatColor.BOLD + "Level " + NovaChickenOut.getInstance().getGame().getLevel());
 	}
 
 	public void updateTimeBar() {
@@ -94,11 +95,16 @@ public class ChickenOutExtension extends JavaPlugin implements Listener {
 
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onGameStart(GameStartEvent e) {
-		updateLevelBar();
-		updateTimeBar();
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				updateLevelBar();
+				updateTimeBar();
 
-		levelBar.setVisible(true);
-		timeBar.setVisible(true);
+				levelBar.setVisible(true);
+				timeBar.setVisible(true);
+			}
+		}.runTaskLater(this, 5L);
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
